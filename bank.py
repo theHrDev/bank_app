@@ -1,48 +1,44 @@
-# 1, Open account
-# 2. To login
-# 3. Print all user info
-# 4. Exit
 
-# 1. firstname
-#     lastname
-#     email
-#     password
-
-
-# 1234567890
-# 1023456789
-# 1204
-# 2. email/account_number
-#     password
-#     print("welcome, firstname lastname, you have #50000 in your account")
-#     1. To do any other thing
-#     2. To logout
-
-# 3. 
-# 4. Bye
+import random
 users = []
 user = {}
-
-# 
-
-# print(users["email"])
+account_balance = 50000
 def open_account(firstname,lastname,email,password):
     global user, users
-    for usee in users:
-         if email in usee:
+    for existing_user in users:
+         if email in existing_user["email"]:
             return "User with the email already exists"
     if int(len(password)) < 8:
         return "Your password must be atleast 8 characters"
-    user={"firstname":firstname, "lastname":lastname,"email":email,"password":password}
+    account_number = random.randint(10**9,10**10-1)
+    user={"firstname":firstname, "lastname":lastname,"email":email,"password":password,"account_number":str(account_number),"account_balance":account_balance}
     users.append(user)
     
     return f"{users} Account created successfully"
 
 
-def login():
-    pass
+def login(credentials,password):
+    global users
+
+    for existing_users in users:
+       if existing_users["email"] == credentials or existing_users["account_number"] == credentials:
+           if existing_users["password"] == password:
+               return f"Login Successful \n Welcome ${existing_users["firstname"]} ${existing_users["lastname"]} \n You have ${account_balance} in your account balance"
+                
+           print("Invalid credentials")
+    
+    print("Account not valid")
+        
+    repeat = input("Do you want to anything?\n1.Yes \n2.No: ")
+    if repeat == "1":
+        pass
+    else:
+        exit()
+                
+    
 def view_user():
-    pass
+    global users
+    return users
 
 def bank_app(menu):
     print("Welcome to Easy Bank, wishing you a easy banking with us:")
@@ -53,13 +49,23 @@ def bank_app(menu):
         password = input("Enter your password: ")
         print(open_account(firstname,lastname,email,password))
     elif(menu == "2"):
-        login()
+        credentials = input("Enter your email or your account number: ")
+        password = input("Enter your password: ")
+        login(credentials,password)
     elif(menu == "3"):
-        view_user()
+        print(view_user())
     elif(menu == 4):
         exit()
     else:
         print("Unknown Menu")
         
+    repeat = input("Do you want to perform another task?\n1.Yes \n2.No: ")
+    if repeat == "1":
+        menu = input("Choose a menu to start with us:\n1.Open Account\n2.Login to your account\n3.View User\n4.Exit: ")
+        bank_app(menu)
+    else:
+        exit()
+        
 menu = input("Choose a menu to start with us:\n1.Open Account\n2.Login to your account\n3.View User\n4.Exit: ")
 bank_app(menu)
+
