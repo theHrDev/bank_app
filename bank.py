@@ -2,7 +2,6 @@
 import random
 users = []
 user = {}
-account_balance = 50000
 def open_account(firstname,lastname,email,password):
     global user, users
     for existing_user in users:
@@ -11,10 +10,10 @@ def open_account(firstname,lastname,email,password):
     if int(len(password)) < 8:
         return "Your password must be atleast 8 characters"
     account_number = random.randint(10**9,10**10-1)
-    user={"firstname":firstname, "lastname":lastname,"email":email,"password":password,"account_number":str(account_number),"account_balance":account_balance}
+    user={"firstname":firstname, "lastname":lastname,"email":email,"password":password,"account_number":str(account_number),"account_balance":500000}
     users.append(user)
     
-    return f"{users} Account created successfully"
+    return f"Account created successfully"
 
 
 def login(credentials,password):
@@ -23,17 +22,12 @@ def login(credentials,password):
     for existing_users in users:
        if existing_users["email"] == credentials or existing_users["account_number"] == credentials:
            if existing_users["password"] == password:
-               return f"Login Successful \n Welcome ${existing_users["firstname"]} ${existing_users["lastname"]} \n You have ${account_balance} in your account balance"
+               return f"Login Successful \n Welcome {existing_users["firstname"]} {existing_users["lastname"]} \n You have #{existing_users["account_balance"]} in your account balance"
                 
-           print("Invalid credentials")
+           return "Invalid credentials"
     
-    print("Account not valid")
-        
-    repeat = input("Do you want to anything?\n1.Yes \n2.No: ")
-    if repeat == "1":
-        pass
-    else:
-        exit()
+    return "Account not valid"
+
                 
     
 def view_user():
@@ -51,7 +45,7 @@ def bank_app(menu):
     elif(menu == "2"):
         credentials = input("Enter your email or your account number: ")
         password = input("Enter your password: ")
-        login(credentials,password)
+        print(login(credentials,password))
     elif(menu == "3"):
         print(view_user())
     elif(menu == 4):
