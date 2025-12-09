@@ -92,8 +92,6 @@ def autheticated_actions():
         exit()
                 
     
-
-
 def bank_app(menu):
     print("Welcome to Easy Bank, wishing you a easy banking with us:")
     if(menu == "1"):
