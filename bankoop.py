@@ -106,7 +106,16 @@ def bank_app():
                     
                 elif auth_menu == "2":
                     print(auth_user_action.check_balance())
-                
+                    
+                elif auth_menu == "3":
+                    key = input("Enter the key you want to edit")
+                    value = input(f"Enter the value for the {key}")
+                    print(auth_user_action.edit_info(key=key, value=value))
+                elif auth_menu == "4":
+                    print(auth_user_action.logout())
+                    break
+                else:
+                    print("Invalid Input")
             
         elif choice == "3":
             email = input("Enter your email: ")
